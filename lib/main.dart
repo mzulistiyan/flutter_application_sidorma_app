@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_sidorma/core/constant/network.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
-import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/profile_mahasiswa_screen.dart';
-import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/ubah_password_screen.dart';
 import 'package:flutter_application_sidorma/feature/splash/splash_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
@@ -27,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UbahPasswordScreen(),
+      home: SplashScreen(),
     );
   }
 }
