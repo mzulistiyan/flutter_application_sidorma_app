@@ -14,8 +14,10 @@ class Api {
 
   Api() {
     dio = Dio();
-    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
-      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
       return client;
     };
 
@@ -59,7 +61,7 @@ class Api {
       options: Options(
         contentType: "application/x-www-form-urlencoded",
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': 'Bearer 1|WokRquFFRK1oMRNpROq07NiYhdKihGr4UQCSv9K0',
         },
       ),
     );
