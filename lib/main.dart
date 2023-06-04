@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_sidorma/core/constant/network.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
-import 'package:flutter_application_sidorma/feature/profile_walisiswa/screen/profile_mahasiswa_screen.dart';
-import 'package:flutter_application_sidorma/feature/profile_walisiswa/screen/ubah_password_screen.dart';
 import 'package:flutter_application_sidorma/feature/splash/splash_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
