@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_sidorma/core/api.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dio/dio.dart';
 
 class UbahPasswordScreen extends StatefulWidget {
   const UbahPasswordScreen({super.key});
@@ -10,7 +12,27 @@ class UbahPasswordScreen extends StatefulWidget {
   State<UbahPasswordScreen> createState() => _UbahPasswordScreenState();
 }
 
+Future<Response<dynamic>?> ubahPasswordWalisiswa(
+    String? oldPassword, String? newPassword) async {
+  try {
+    final response = await Api().post(
+      path: 'api/change-password',
+      formObj: {
+        "old_password": oldPassword!,
+        "new_password": newPassword!,
+      },
+    );
+    return response;
+  } on DioError catch (e) {
+    return e.response ?? Response(requestOptions: RequestOptions(path: ''));
+  }
+}
+
 class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
+  final oldPasswordController = TextEditingController(text: "");
+  final newPasswordController = TextEditingController(text: "");
+  final confirmPasswordController = TextEditingController(text: "");
+
   bool _isPasswordVisible = false;
   bool _isNewPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -56,13 +78,24 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
         ),
         actions: [
           IconButton(
-              icon: const Icon(
-                Icons.check,
-                color: Color.fromARGB(255, 80, 17, 189),
-              ),
-              onPressed: () {
+            icon: const Icon(
+              Icons.check,
+              color: Color.fromARGB(255, 80, 17, 189),
+            ),
+            onPressed: () async {
+              var res = await ubahPasswordWalisiswa(
+                  oldPasswordController.text, newPasswordController.text);
+              if (res!.statusCode != 200) {
+                throw Exception('Unexpected error occured!');
+              } else {
                 Navigator.pop(context);
-              })
+                var snackBar = const SnackBar(
+                  content: Text('Data berhasil diubah'),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
+          )
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(24), children: [
@@ -77,6 +110,7 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               fontSize: 17, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
         TextField(
+          controller: oldPasswordController,
           obscureText: !_isPasswordVisible,
           decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -92,6 +126,7 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               fontSize: 17, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
         TextField(
+          controller: newPasswordController,
           obscureText: !_isNewPasswordVisible,
           decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -108,6 +143,7 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               fontSize: 17, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
         TextField(
+          controller: confirmPasswordController,
           obscureText: !_isConfirmPasswordVisible,
           decoration: InputDecoration(
               suffixIcon: IconButton(
