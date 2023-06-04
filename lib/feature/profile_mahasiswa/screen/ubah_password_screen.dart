@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_sidorma/core/api.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dio/dio.dart';
 
 class UbahPasswordScreen extends StatefulWidget {
   const UbahPasswordScreen({super.key});
@@ -10,7 +12,26 @@ class UbahPasswordScreen extends StatefulWidget {
   State<UbahPasswordScreen> createState() => _UbahPasswordScreenState();
 }
 
+Future<Response<dynamic>?> ubahPasswordMahasiswa(
+    String? oldPassword, String? newPassword) async {
+  try {
+    final response = await Api().post(
+      path: 'api/change-password',
+      formObj: {
+        "old_password": oldPassword!,
+        "new_password": newPassword!,
+      },
+    );
+    return response;
+  } on DioError catch (e) {
+    return e.response ?? Response(requestOptions: RequestOptions(path: ''));
+  }
+}
+
 class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
+  final oldPasswordController = TextEditingController(text: '');
+  final newPasswordController = TextEditingController(text: '');
+  final confirmNewPasswordController = TextEditingController(text: '');
   bool _isPasswordVisible = false;
   bool _isNewPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -52,8 +73,21 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.pop(context);
+              onPressed: () async {
+                var res = await ubahPasswordMahasiswa(
+                    oldPasswordController.text, newPasswordController.text);
+
+                if (res!.statusCode != 200) {
+                  throw Exception('Unexpected error occured!');
+                } else {
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
+                  var snackBar = const SnackBar(
+                    content: Text('Data berhasil diubah'),
+                  );
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               },
               icon: const Icon(
                 Icons.check,
@@ -81,6 +115,7 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
 
             const Padding(padding: EdgeInsets.only(left: 44, right: 44)),
             TextField(
+              controller: oldPasswordController,
               obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -102,7 +137,8 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               height: 24,
             ),
             TextField(
-              obscureText: !_isPasswordVisible,
+              controller: newPasswordController,
+              obscureText: !_isNewPasswordVisible,
               decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(_isPasswordVisible
@@ -123,7 +159,8 @@ class _UbahPasswordScreenState extends State<UbahPasswordScreen> {
               height: 24,
             ),
             TextField(
-              obscureText: !_isPasswordVisible,
+              controller: confirmNewPasswordController,
+              obscureText: !_isConfirmPasswordVisible,
               decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(_isPasswordVisible
