@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final responseLogin = responseLoginFromJson(jsonString);
+//     final responseGetWaliMahasiswa = responseGetWaliMahasiswaFromJson(jsonString);
 
 import 'dart:convert';
 
-ResponseLogin responseLoginFromJson(String str) => ResponseLogin.fromJson(json.decode(str));
+ResponseGetWaliMahasiswa responseGetWaliMahasiswaFromJson(String str) => ResponseGetWaliMahasiswa.fromJson(json.decode(str));
 
-String responseLoginToJson(ResponseLogin data) => json.encode(data.toJson());
+String responseGetWaliMahasiswaToJson(ResponseGetWaliMahasiswa data) => json.encode(data.toJson());
 
-class ResponseLogin {
+class ResponseGetWaliMahasiswa {
   Meta meta;
-  Data data;
+  DataGetWaliMahasiswa data;
 
-  ResponseLogin({
+  ResponseGetWaliMahasiswa({
     required this.meta,
     required this.data,
   });
 
-  factory ResponseLogin.fromJson(Map<String, dynamic> json) => ResponseLogin(
+  factory ResponseGetWaliMahasiswa.fromJson(Map<String, dynamic> json) => ResponseGetWaliMahasiswa(
         meta: Meta.fromJson(json["meta"]),
-        data: Data.fromJson(json["data"]),
+        data: DataGetWaliMahasiswa.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -28,59 +28,38 @@ class ResponseLogin {
       };
 }
 
-class Data {
-  String accessToken;
-  String tokenType;
-  User user;
-
-  Data({
-    required this.accessToken,
-    required this.tokenType,
-    required this.user,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        accessToken: json["access_token"],
-        tokenType: json["token_type"],
-        user: User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "access_token": accessToken,
-        "token_type": tokenType,
-        "user": user.toJson(),
-      };
-}
-
-class User {
+class DataGetWaliMahasiswa {
   int id;
   String nim;
   String email;
-
   dynamic emailVerifiedAt;
-  dynamic role;
+  String role;
   dynamic twoFactorConfirmedAt;
   dynamic currentTeamId;
   dynamic profilePhotoPath;
   DateTime createdAt;
   DateTime updatedAt;
+  String name;
+  Detail detail;
   String profilePhotoUrl;
 
-  User({
+  DataGetWaliMahasiswa({
     required this.id,
     required this.nim,
     required this.email,
     this.emailVerifiedAt,
-    this.role,
+    required this.role,
     this.twoFactorConfirmedAt,
     this.currentTeamId,
     this.profilePhotoPath,
     required this.createdAt,
     required this.updatedAt,
+    required this.name,
+    required this.detail,
     required this.profilePhotoUrl,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory DataGetWaliMahasiswa.fromJson(Map<String, dynamic> json) => DataGetWaliMahasiswa(
         id: json["id"],
         nim: json["nim"],
         email: json["email"],
@@ -91,6 +70,8 @@ class User {
         profilePhotoPath: json["profile_photo_path"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        name: json["name"],
+        detail: Detail.fromJson(json["detail"]),
         profilePhotoUrl: json["profile_photo_url"],
       );
 
@@ -105,7 +86,53 @@ class User {
         "profile_photo_path": profilePhotoPath,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "name": name,
+        "detail": detail.toJson(),
         "profile_photo_url": profilePhotoUrl,
+      };
+}
+
+class Detail {
+  int idWali;
+  String nama;
+  String noTelp;
+  String nim;
+  String alamat;
+  String hubungan;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  Detail({
+    required this.idWali,
+    required this.nama,
+    required this.noTelp,
+    required this.nim,
+    required this.alamat,
+    required this.hubungan,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+        idWali: json["id_wali"],
+        nama: json["nama"],
+        noTelp: json["no_telp"],
+        nim: json["nim"],
+        alamat: json["alamat"],
+        hubungan: json["hubungan"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_wali": idWali,
+        "nama": nama,
+        "no_telp": noTelp,
+        "nim": nim,
+        "alamat": alamat,
+        "hubungan": hubungan,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
 }
 

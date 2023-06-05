@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_sidorma/core/api.dart';
+import 'package:flutter_application_sidorma/feature/profile_walisiswa/model/response_get_wali.dart';
+import 'package:flutter_application_sidorma/feature/profile_walisiswa/screen/profile_wali_siswa_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart';
 
 class EditWaliSiswaPage extends StatefulWidget {
-  const EditWaliSiswaPage({super.key});
+  DataGetWaliMahasiswa walisiswa;
+  EditWaliSiswaPage({super.key, required this.walisiswa});
 
   @override
   State<EditWaliSiswaPage> createState() => _EditWaliSiswaPageState();
 }
 
-Future<Response<dynamic>?> updateWaliSiswa(
-    String? nameInpt, String? noTelpInpt, String? alamatInpt) async {
+Future<Response<dynamic>?> updateWaliSiswa(String? nameInpt, String? noTelpInpt, String? alamatInpt) async {
   try {
     final response = await Api().put(
       path: 'api/walisiswa',
@@ -31,6 +33,13 @@ class _EditWaliSiswaPageState extends State<EditWaliSiswaPage> {
   final nameWaliSiswaController = TextEditingController(text: '');
   final noTelpWaliSiswaController = TextEditingController(text: '');
   final alamatWaliSiswaController = TextEditingController(text: '');
+  @override
+  void initState() {
+    super.initState();
+    nameWaliSiswaController.text = widget.walisiswa.name;
+    noTelpWaliSiswaController.text = widget.walisiswa.detail.noTelp;
+    alamatWaliSiswaController.text = widget.walisiswa.detail.alamat;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +68,12 @@ class _EditWaliSiswaPageState extends State<EditWaliSiswaPage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  var res = await updateWaliSiswa(
-                      nameWaliSiswaController.text,
-                      noTelpWaliSiswaController.text,
-                      alamatWaliSiswaController.text);
+                  var res = await updateWaliSiswa(nameWaliSiswaController.text, noTelpWaliSiswaController.text, alamatWaliSiswaController.text);
                   if (res!.statusCode != 200) {
                     throw Exception('Unexpected error occured!');
                   } else {
                     // ignore: use_build_context_synchronously
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileWaliSiswaScreen()));
                     var snackBar = const SnackBar(
                       content: Text('Data berhasil diubah'),
                     );
@@ -111,8 +117,7 @@ class _EditWaliSiswaPageState extends State<EditWaliSiswaPage> {
               width: double.infinity,
               height: 30,
               child: TextFormField(
-                controller: nameWaliSiswaController
-                  ..text = "", //widget.walisiswa.data!.namaWaliSiswa!,
+                controller: nameWaliSiswaController, //widget.walisiswa.data!.namaWaliSiswa!,
                 decoration: const InputDecoration(),
               ),
             ),
@@ -131,8 +136,7 @@ class _EditWaliSiswaPageState extends State<EditWaliSiswaPage> {
               width: double.infinity,
               height: 30,
               child: TextFormField(
-                controller: noTelpWaliSiswaController
-                  ..text = "", // widget.walisiswa.data!.prodi!,
+                controller: noTelpWaliSiswaController, // widget.walisiswa.data!.prodi!,
                 decoration: const InputDecoration(),
               ),
             ),
@@ -151,8 +155,7 @@ class _EditWaliSiswaPageState extends State<EditWaliSiswaPage> {
               width: double.infinity,
               height: 30,
               child: TextFormField(
-                controller: alamatWaliSiswaController
-                  ..text = "", // widget.walisiswa.data!.prodi!,
+                controller: alamatWaliSiswaController, // widget.walisiswa.data!.prodi!,
                 decoration: const InputDecoration(),
               ),
             ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/menu_screen.dart';
+import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/profile_mahasiswa_screen.dart';
 import 'package:flutter_radar/flutter_radar.dart';
 import 'package:intl/intl.dart';
 
@@ -204,26 +205,40 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      IconButton(
-                        onPressed: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const MenuPage(),
-                          //   ),
-                          // );
-                          OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-                            print("Accepted permission: $accepted");
-                          });
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const MenuPage(),
+                              //   ),
+                              // );
+                              // OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
+                              //   print("Accepted permission: $accepted");
+                              // });
 
-                          //check whether the app is subscribed to onesignal****
-                          OneSignal.shared.getDeviceState().then((deviceState) async {
-                            if (deviceState?.subscribed == true) {
-                              await OneSignal.shared.setExternalUserId("0000112233333");
-                            }
-                          });
-                        },
-                        icon: const Icon(Icons.menu, color: Colors.white),
+                              // //check whether the app is subscribed to onesignal****
+                              // OneSignal.shared.getDeviceState().then((deviceState) async {
+                              //   if (deviceState?.subscribed == true) {
+                              //     await OneSignal.shared.setExternalUserId("0000112233333");
+                              //   }
+                              // });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ProfileMahasiswaScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.person, color: Colors.black),
+                          ),
+                        ),
                       )
                     ],
                   ),

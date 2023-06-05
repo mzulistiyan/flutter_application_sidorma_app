@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final responseLogin = responseLoginFromJson(jsonString);
+//     final responseGetMahasiswa = responseGetMahasiswaFromJson(jsonString);
 
 import 'dart:convert';
 
-ResponseLogin responseLoginFromJson(String str) => ResponseLogin.fromJson(json.decode(str));
+ResponseGetMahasiswa responseGetMahasiswaFromJson(String str) => ResponseGetMahasiswa.fromJson(json.decode(str));
 
-String responseLoginToJson(ResponseLogin data) => json.encode(data.toJson());
+String responseGetMahasiswaToJson(ResponseGetMahasiswa data) => json.encode(data.toJson());
 
-class ResponseLogin {
+class ResponseGetMahasiswa {
   Meta meta;
-  Data data;
+  DataGetMahasiswa data;
 
-  ResponseLogin({
+  ResponseGetMahasiswa({
     required this.meta,
     required this.data,
   });
 
-  factory ResponseLogin.fromJson(Map<String, dynamic> json) => ResponseLogin(
+  factory ResponseGetMahasiswa.fromJson(Map<String, dynamic> json) => ResponseGetMahasiswa(
         meta: Meta.fromJson(json["meta"]),
-        data: Data.fromJson(json["data"]),
+        data: DataGetMahasiswa.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -28,59 +28,38 @@ class ResponseLogin {
       };
 }
 
-class Data {
-  String accessToken;
-  String tokenType;
-  User user;
-
-  Data({
-    required this.accessToken,
-    required this.tokenType,
-    required this.user,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        accessToken: json["access_token"],
-        tokenType: json["token_type"],
-        user: User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "access_token": accessToken,
-        "token_type": tokenType,
-        "user": user.toJson(),
-      };
-}
-
-class User {
+class DataGetMahasiswa {
   int id;
   String nim;
   String email;
-
   dynamic emailVerifiedAt;
-  dynamic role;
+  String role;
   dynamic twoFactorConfirmedAt;
   dynamic currentTeamId;
   dynamic profilePhotoPath;
   DateTime createdAt;
   DateTime updatedAt;
+  String name;
+  Detail detail;
   String profilePhotoUrl;
 
-  User({
+  DataGetMahasiswa({
     required this.id,
     required this.nim,
     required this.email,
     this.emailVerifiedAt,
-    this.role,
+    required this.role,
     this.twoFactorConfirmedAt,
     this.currentTeamId,
     this.profilePhotoPath,
     required this.createdAt,
     required this.updatedAt,
+    required this.name,
+    required this.detail,
     required this.profilePhotoUrl,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory DataGetMahasiswa.fromJson(Map<String, dynamic> json) => DataGetMahasiswa(
         id: json["id"],
         nim: json["nim"],
         email: json["email"],
@@ -91,6 +70,8 @@ class User {
         profilePhotoPath: json["profile_photo_path"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        name: json["name"],
+        detail: Detail.fromJson(json["detail"]),
         profilePhotoUrl: json["profile_photo_url"],
       );
 
@@ -105,7 +86,61 @@ class User {
         "profile_photo_path": profilePhotoPath,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "name": name,
+        "detail": detail.toJson(),
         "profile_photo_url": profilePhotoUrl,
+      };
+}
+
+class Detail {
+  int id;
+  String name;
+  int nim;
+  String fakultas;
+  String prodi;
+  String alamat;
+  String noTelp;
+  String idGedung;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  Detail({
+    required this.id,
+    required this.name,
+    required this.nim,
+    required this.fakultas,
+    required this.prodi,
+    required this.alamat,
+    required this.noTelp,
+    required this.idGedung,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+        id: json["id"],
+        name: json["name"],
+        nim: json["nim"],
+        fakultas: json["fakultas"],
+        prodi: json["prodi"],
+        alamat: json["alamat"],
+        noTelp: json["no_telp"],
+        idGedung: json["id_gedung"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "nim": nim,
+        "fakultas": fakultas,
+        "prodi": prodi,
+        "alamat": alamat,
+        "no_telp": noTelp,
+        "id_gedung": idGedung,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
 }
 

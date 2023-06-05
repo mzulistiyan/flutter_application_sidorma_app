@@ -3,6 +3,7 @@ import 'package:flutter_application_sidorma/core/utils/size_config.dart';
 import 'package:flutter_application_sidorma/core/utils/token_helper.dart';
 import 'package:flutter_application_sidorma/feature/auth/screen/login_screen.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
+import 'package:flutter_application_sidorma/feature/wali_siswa/wali_siswa_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,13 +20,18 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () async {
       String token = await _tokenHelper.getToken();
+      String role = await _tokenHelper.getRole();
       debugPrint('Token Login Splash Screen : $token');
       if (token.isEmpty) {
         // ignore: use_build_context_synchronously
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
+        if (role == 'Mahasiswa') {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WaliSiswaScreen()), (route) => false);
+        }
       }
     });
   }
