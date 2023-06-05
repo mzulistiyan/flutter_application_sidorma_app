@@ -101,7 +101,7 @@ class _TermServiceScreenState extends State<TermServiceScreen> {
                     height: 20,
                   ),
                   Text(
-                    'Proses check-in dalam aplikasi SIDORMA dilakukan melalui penggunaan kode QR yang terhubung dengan GPS. Sebelum melakukan check-in fisik di asrama, Anda perlu mengisi informasi pribadi yang akurat dan lengkap pada aplikasi. Namun, untuk memastikan keaslian dan keberadaan Anda, proses check-in hanya dapat diakses saat GPS pada perangkat Anda mendeteksi keberadaan di area yang telah ditentukan.  Selain itu, semua riwayat check-in dan check-out Anda akan secara otomatis masuk ke log riwayat mahasiswa dalam sistem. Hal ini bertujuan untuk memudahkan pemantauan dan administrasi masa tinggal Anda di asrama.',
+                    'Proses check-in dalam aplikasi SIDORMA dilakukan melalui penggunaan face recognition yang terhubung dengan GPS. Sebelum melakukan check-in fisik di asrama, Anda perlu mengisi informasi pribadi yang akurat dan lengkap pada aplikasi. Namun, untuk memastikan keaslian dan keberadaan Anda, proses check-in hanya dapat diakses saat GPS pada perangkat Anda mendeteksi keberadaan di area yang telah ditentukan.  Selain itu, semua riwayat check-in dan check-out Anda akan secara otomatis masuk ke log riwayat mahasiswa dalam sistem. Hal ini bertujuan untuk memudahkan pemantauan dan administrasi masa tinggal Anda di asrama.',
                     style: GoogleFonts.poppins(
                       fontSize: 10,
                       fontWeight: FontWeight.w400,
