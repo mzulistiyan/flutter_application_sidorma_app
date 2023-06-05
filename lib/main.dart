@@ -6,6 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'feature/auth/screen/login_screen.dart';
+import 'feature/profile_mahasiswa/screen/term_service_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
