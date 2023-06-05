@@ -7,6 +7,8 @@ import 'package:flutter_application_sidorma/core/widget/custom_form_button.dart'
 import 'package:flutter_application_sidorma/core/widget/custom_input_field.dart';
 import 'package:flutter_application_sidorma/feature/auth/bloc/bloc/login_bloc.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
+import 'package:flutter_application_sidorma/feature/profile_walisiswa/screen/profile_wali_siswa_screen.dart';
+import 'package:flutter_application_sidorma/feature/wali_siswa/wali_siswa_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -21,8 +23,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController userController = TextEditingController(text: 'izulistiyan@gmail.com');
-  TextEditingController passwordController = TextEditingController(text: '11223344');
+  TextEditingController userController = TextEditingController(text: 'zulis@mail.com');
+  TextEditingController passwordController = TextEditingController(text: '1301204152');
 
   final _loginBloc = LoginBloc();
   final _tokenHelper = TokenHelper();
@@ -100,17 +102,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 14,
                           ),
-                          Container(
-                            width: size.width * 0.80,
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () => {},
-                              child: Text(
-                                'Forget password?',
-                                style: FontsGlobal.mediumTextStyle12,
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   width: size.width * 0.80,
+                          //   alignment: Alignment.centerRight,
+                          //   child: GestureDetector(
+                          //     onTap: () => {},
+                          //     child: Text(
+                          //       'Forget password?',
+                          //       style: FontsGlobal.mediumTextStyle12,
+                          //     ),
+                          //   ),
+                          // ),
                           const SizedBox(
                             height: 40,
                           ),
@@ -119,7 +121,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             listener: (context, state) {
                               if (state is LoginSuccess) {
                                 _tokenHelper.saveToken(state.responseLogin.data.accessToken);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                if (state.responseLogin.data.user.role == 'mahasiswa') {
+                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                } else {
+                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const WaliSiswaScreen(),
+                                    ),
+                                  );
+                                }
                               }
                             },
                             builder: (context, state) {

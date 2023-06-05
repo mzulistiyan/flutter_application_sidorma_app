@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ Future<List<DataAbsensiToday>> getReportToday() async {
     throw Exception('Failed to load mahasiswa');
   }
 }
+=======
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+>>>>>>> d1eb01e0af1a3333eca98ca566a381351252f905
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -29,6 +34,7 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
+<<<<<<< HEAD
   late Future<List<DataAbsensiToday>> futureReport;
 
   @override
@@ -107,5 +113,10 @@ class _ReportScreenState extends State<ReportScreen> {
         // ],
       ),
     );
+=======
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+>>>>>>> d1eb01e0af1a3333eca98ca566a381351252f905
   }
 }
