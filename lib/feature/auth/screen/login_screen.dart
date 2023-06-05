@@ -23,8 +23,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController userController = TextEditingController(text: 'zulis@mail.com');
-  TextEditingController passwordController = TextEditingController(text: '1301204152');
+  TextEditingController userController =
+      TextEditingController(text: 'zulis@mail.com');
+  TextEditingController passwordController =
+      TextEditingController(text: '1301204037');
 
   final _loginBloc = LoginBloc();
   final _tokenHelper = TokenHelper();
@@ -120,16 +122,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             bloc: _loginBloc,
                             listener: (context, state) {
                               if (state is LoginSuccess) {
-                                _tokenHelper.saveToken(state.responseLogin.data.accessToken);
-                                if (state.responseLogin.data.user.role == 'mahasiswa') {
-                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                _tokenHelper.saveToken(
+                                    state.responseLogin.data.accessToken);
+                                if (state.responseLogin.data.user.role ==
+                                    'mahasiswa') {
+                                  _tokenHelper.saveRole(
+                                      state.responseLogin.data.user.role);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()));
                                 } else {
-                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
+                                  _tokenHelper.saveRole(
+                                      state.responseLogin.data.user.role);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const WaliSiswaScreen(),
+                                      builder: (context) =>
+                                          const WaliSiswaScreen(),
                                     ),
                                   );
                                 }
