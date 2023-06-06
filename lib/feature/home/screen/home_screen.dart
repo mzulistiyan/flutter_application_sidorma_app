@@ -3,6 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/menu_screen.dart';
+import 'package:flutter_application_sidorma/feature/home/screen/report_all_screen.dart';
+import 'package:flutter_application_sidorma/feature/home/screen/take_foto_2_screen.dart';
+import 'package:flutter_application_sidorma/feature/home/screen/take_foto_screen.dart';
 import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/profile_mahasiswa_screen.dart';
 import 'package:flutter_radar/flutter_radar.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +15,7 @@ import 'package:flutter_application_sidorma/core/resources/fonts.dart';
 import 'package:flutter_application_sidorma/core/utils/size_config.dart';
 import 'package:flutter_application_sidorma/core/widget/custom_separator.dart';
 import 'package:flutter_application_sidorma/core/widget/primary_button.dart';
-import 'package:flutter_application_sidorma/feature/home/bloc/bloc/get_report_today_bloc.dart';
+import 'package:flutter_application_sidorma/feature/home/bloc/handle_api/get_report_today_bloc.dart';
 import 'package:flutter_application_sidorma/feature/home/bloc/handle_api/status_absensi_bloc.dart';
 import 'package:flutter_application_sidorma/feature/home/bloc/handle_api/absensi_bloc.dart';
 import 'package:flutter_application_sidorma/feature/home/models/response_get_report_today.dart';
@@ -118,9 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _positionStreamSubscription!.cancel();
     _statusAbsensiBloc.close();
     _reportTodayBloc.close();
+
     super.dispose();
   }
 
@@ -128,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // Until currentLocation is initially updated, Widget can locate to 0, 0
     // by default or store previous location value to show.
-
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         //size box height 0.2
@@ -206,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
@@ -303,22 +306,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       debugPrint('State Absensi : $state');
                       if (state is AbsensiSuccess) {
                         if (state.responseAbsensi.data.status == false) {
-                          _statusAbsensiBloc.add(StatusAbsensi());
-                          _reportTodayBloc.add(GetReportToday());
+                          // _statusAbsensiBloc.add(StatusAbsensi());
+                          // _reportTodayBloc.add(GetReportToday());
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Berhasil Keluar'),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //     content: Text('Berhasil Masuk'),
+                          //     backgroundColor: Colors.green,
+                          //   ),
+                          // );
                         } else {
                           _statusAbsensiBloc.add(StatusAbsensi());
                           _reportTodayBloc.add(GetReportToday());
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Berhasil Masuk'),
+                              content: Text('Berhasil Keluar'),
                               backgroundColor: Colors.green,
                             ),
                           );
@@ -341,8 +344,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               text: dalamRuangan == true ? "Masuk" : 'Keluar',
                               onPressed: () {
                                 if (areaIsReady) {
-                                  _statusAbsensiBloc.add(StatusAbsensi());
-                                  _absensiBloc.add(AbsensiButtonPressed());
+                                  if (dalamRuangan == false) {
+                                    _statusAbsensiBloc.add(StatusAbsensi());
+                                    _absensiBloc.add(AbsensiButtonPressed());
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const TakeFotoPenilaianPage(),
+                                      ),
+                                    );
+                                  }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -400,9 +412,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         'History Attandance',
                         style: FontsGlobal.semiBoldTextStyle14.copyWith(color: Colors.black),
                       ),
-                      Text(
-                        'Report',
-                        style: FontsGlobal.mediumTextStyle14.copyWith(color: Colors.black),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReportAllScreen()));
+                        },
+                        child: Text(
+                          'Report',
+                          style: FontsGlobal.mediumTextStyle14.copyWith(color: Colors.black),
+                        ),
                       ),
                     ],
                   ),

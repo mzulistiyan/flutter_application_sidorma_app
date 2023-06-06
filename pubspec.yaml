@@ -49,6 +49,9 @@ dependencies:
   flutter_radar: ^3.1.5
   onesignal_flutter: ^3.5.1
   flutter_native_splash: ^2.2.16
+  shared_preferences: ^2.1.1
+  permission_handler: ^10.2.0
+  camera: ^0.10.5+2
 
 dev_dependencies:
   flutter_test:

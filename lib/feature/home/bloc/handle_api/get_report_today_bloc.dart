@@ -4,8 +4,8 @@ import 'package:flutter_application_sidorma/core/models/response_error.dart';
 import 'package:flutter_application_sidorma/feature/home/models/response_get_report_today.dart';
 import 'package:flutter_application_sidorma/feature/home/service/home_services.dart';
 
-part 'get_report_today_event.dart';
-part 'get_report_today_state.dart';
+part '../events/get_report_today_event.dart';
+part '../state/get_report_today_state.dart';
 
 class GetReportTodayBloc extends Bloc<GetReportTodayEvent, GetReportTodayState> {
   final _apiHomeServices = HomeServices();

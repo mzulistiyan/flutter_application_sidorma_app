@@ -7,4 +7,10 @@ abstract class AbsensiEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AbsensiButtonPressed extends AbsensiEvent {}
+class AbsensiButtonPressed extends AbsensiEvent {
+  final File? imgFile;
+  AbsensiButtonPressed({this.imgFile});
+
+  @override
+  List<Object> get props => [imgFile?.path ?? ''];
+}

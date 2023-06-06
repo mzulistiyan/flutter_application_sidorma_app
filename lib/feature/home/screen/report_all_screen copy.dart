@@ -6,21 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/resources/colors.dart';
-import '../../core/resources/fonts.dart';
-import '../../core/utils/size_config.dart';
-import '../../core/widget/custom_separator.dart';
-import '../home/bloc/bloc/get_report_today_bloc.dart';
-import '../home/models/response_get_report_today.dart';
+import '../../../core/resources/colors.dart';
+import '../../../core/resources/fonts.dart';
+import '../../../core/utils/size_config.dart';
+import '../../../core/widget/custom_separator.dart';
+import '../bloc/handle_api/get_report_today_bloc.dart';
+import '../models/response_get_report_today.dart';
 
-class WaliSiswaScreen extends StatefulWidget {
-  const WaliSiswaScreen({super.key});
+class ReportAllScreen extends StatefulWidget {
+  const ReportAllScreen({super.key});
 
   @override
-  State<WaliSiswaScreen> createState() => _WaliSiswaScreenState();
+  State<ReportAllScreen> createState() => _ReportAllScreenState();
 }
 
-class _WaliSiswaScreenState extends State<WaliSiswaScreen> {
+class _ReportAllScreenState extends State<ReportAllScreen> {
   final _reportTodayBloc = GetReportTodayBloc();
   @override
   void initState() {
@@ -65,12 +65,6 @@ class _WaliSiswaScreenState extends State<WaliSiswaScreen> {
                   //     await OneSignal.shared.setExternalUserId("0000112233333");
                   //   }
                   // });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileWaliSiswaScreen(),
-                    ),
-                  );
                 },
                 icon: const Icon(Icons.person, color: Colors.black),
               ),

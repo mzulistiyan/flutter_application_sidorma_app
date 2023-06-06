@@ -8,11 +8,12 @@ import 'package:flutter_application_sidorma/core/widget/custom_input_field.dart'
 import 'package:flutter_application_sidorma/feature/auth/bloc/bloc/login_bloc.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
 import 'package:flutter_application_sidorma/feature/profile_walisiswa/screen/profile_wali_siswa_screen.dart';
-import 'package:flutter_application_sidorma/feature/wali_siswa/wali_siswa_screen.dart';
+import 'package:flutter_application_sidorma/feature/home/screen/report_all_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../profile_walisiswa/screen/report_wali_siswa_screen.dart';
 import 'example_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,10 +24,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController userController =
-      TextEditingController(text: 'zulis@mail.com');
-  TextEditingController passwordController =
-      TextEditingController(text: '1301204037');
+  TextEditingController userController = TextEditingController(text: 'zulis@mail.com');
+  TextEditingController passwordController = TextEditingController(text: '1301204037');
 
   final _loginBloc = LoginBloc();
   final _tokenHelper = TokenHelper();
@@ -122,27 +121,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             bloc: _loginBloc,
                             listener: (context, state) {
                               if (state is LoginSuccess) {
-                                _tokenHelper.saveToken(
-                                    state.responseLogin.data.accessToken);
-                                if (state.responseLogin.data.user.role ==
-                                    'mahasiswa') {
-                                  _tokenHelper.saveRole(
-                                      state.responseLogin.data.user.role);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomeScreen()));
+                                _tokenHelper.saveToken(state.responseLogin.data.accessToken);
+                                if (state.responseLogin.data.user.role == 'mahasiswa') {
+                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomeScreen()), (route) => false);
                                 } else {
-                                  _tokenHelper.saveRole(
-                                      state.responseLogin.data.user.role);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const WaliSiswaScreen(),
-                                    ),
-                                  );
+                                  _tokenHelper.saveRole(state.responseLogin.data.user.role);
+                                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ReportWaliSiswaScreen()), (route) => false);
                                 }
                               }
                             },
