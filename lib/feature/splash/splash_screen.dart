@@ -3,7 +3,7 @@ import 'package:flutter_application_sidorma/core/utils/size_config.dart';
 import 'package:flutter_application_sidorma/core/utils/token_helper.dart';
 import 'package:flutter_application_sidorma/feature/auth/screen/login_screen.dart';
 import 'package:flutter_application_sidorma/feature/home/screen/home_screen.dart';
-import 'package:flutter_application_sidorma/feature/wali_siswa/wali_siswa_screen.dart';
+import 'package:flutter_application_sidorma/feature/home/screen/report_all_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (role == 'Mahasiswa') {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
         } else {
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WaliSiswaScreen()), (route) => false);
+          // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WaliSiswaScreen()), (route) => false);
         }
       }
     });

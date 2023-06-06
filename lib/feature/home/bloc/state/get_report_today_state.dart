@@ -1,4 +1,4 @@
-part of 'get_report_today_bloc.dart';
+part of '../handle_api/get_report_today_bloc.dart';
 
 abstract class GetReportTodayState extends Equatable {
   const GetReportTodayState();

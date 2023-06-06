@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application_sidorma/feature/auth/screen/login_screen.dart';
 import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/edit_mahasiswa.dart';
+import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/privacy_policy.dart';
+import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/term_service_screen.dart';
 import 'package:flutter_application_sidorma/feature/profile_mahasiswa/screen/ubah_password_screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -171,17 +173,20 @@ class _ProfileMahasiswaScreenState extends State<ProfileMahasiswaScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Bantuan',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
+                  GestureDetector(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Bantuan',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                          ),
                         ),
-                      ),
-                      const Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
+                        const Icon(Icons.keyboard_arrow_right_rounded),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 40,
@@ -197,32 +202,52 @@ class _ProfileMahasiswaScreenState extends State<ProfileMahasiswaScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Privacy & Policy',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PrivacyPolicyScreen(),
                         ),
-                      ),
-                      const Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Privacy & Policy',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const Icon(Icons.keyboard_arrow_right_rounded),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 12,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Term of Service',
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TermServiceScreen(),
                         ),
-                      ),
-                      const Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Term of Service',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const Icon(Icons.keyboard_arrow_right_rounded),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 12,

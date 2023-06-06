@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_application_sidorma/core/models/response_error.dart';
@@ -13,7 +15,9 @@ class AbsensiBloc extends Bloc<AbsensiEvent, AbsensiState> {
     on<AbsensiButtonPressed>((event, emit) async {
       emit(AbsensiLoading());
       try {
-        final response = await _apiHomeServices.absensi();
+        final response = await _apiHomeServices.absensi(
+          file: event.imgFile,
+        );
         if (response!.statusCode == 200) {
           emit(AbsensiSuccess(responseAbsensi: ResponseAbsensi.fromJson(response.data)));
         } else {
